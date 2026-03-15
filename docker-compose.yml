@@ -1,0 +1,26 @@
+services:
+  kart:
+    image: ${KART_IMAGE:-ghcr.io/ebears/srb2kart-docker:latest}
+    # To build from source instead, set KART_IMAGE="" and uncomment:
+    # build:
+    #   context: .
+    #   args:
+    #     KART_VERSION: ${KART_VERSION:-auto}
+    container_name: kart
+    restart: unless-stopped
+    stop_grace_period: 30s
+    ports:
+      - "5029:5029/udp"
+    volumes:
+      - "./mods:/mods"        # Drop mod files here (.wad, .pk3, .kart, etc.)
+      - "./data:/data"        # Server data and config (kartserv.cfg)
+    deploy:
+      resources:
+        limits:
+          memory: 1024m
+          cpus: "2.0"
+    logging:
+      options:
+        max-size: "10m"
+        max-file: "3"
+    # command: ["-maxplayers", "16"]

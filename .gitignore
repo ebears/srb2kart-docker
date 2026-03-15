@@ -1,0 +1,10 @@
+# Claude Code
+.claude/
+
+# AI tooling
+.gemini/
+.aider*
+
+# Runtime directories created by docker compose
+mods/
+data/
