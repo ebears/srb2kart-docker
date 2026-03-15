@@ -53,10 +53,10 @@ The project is intentionally minimal — no build system beyond Docker.
 2. **gamedata** stage — fetches game data files (`.kart`, `.dat`, `.srb`) from GitHub releases. `KART_VERSION` controls which release to download from. Downloads and extracts only the needed file types from the `AssetsLinuxOnly.zip` asset.
 3. **Runtime** stage — copies the `srb2` binary from the build stage and game data from the gamedata stage into a clean `ubuntu:24.04` image with only the required runtime libraries.
 
-**Runtime flow:** `kart.sh` is the entrypoint. It checks if `/mods` has files (using nullglob), filters to recognized types (`.wad`, `.pk3`, `.kart`, `.soc`, `.lua`, `.cfg`), then launches `srb2 -dedicated -config kartserv.cfg -home /data`, appending `-file` with the mod paths when present. Extra arguments passed to the container (`docker run ... srb2kart-docker -maxplayers 16` or via Compose `command:`) are forwarded to `srb2` before the `-file` mod args. The script also handles SIGTERM/SIGINT forwarding for graceful shutdown. On first run, the entrypoint copies the default `kartserv.cfg` to `/data/.srb2kart/`.
+**Runtime flow:** `kart.sh` is the entrypoint. It checks if `/mods` has files (using nullglob), filters to recognized types (`.kart`, `.wad`, `.pk3`, `.soc`, `.lua`, `.cfg`), then launches `srb2 -dedicated -config kartserv.cfg -home /data`, appending `-file` with the mod paths when present. Extra arguments passed to the container (`docker run ... srb2kart-docker -maxplayers 16` or via Compose `command:`) are forwarded to `srb2` before the `-file` mod args. The script also handles SIGTERM/SIGINT forwarding for graceful shutdown. On first run, the entrypoint copies the default `kartserv.cfg` to `/data/.srb2kart/`.
 
 **Volumes:**
-- `/mods` — Optional mods directory (`.wad`, `.pk3`, `.kart` files loaded automatically via `-file`)
+- `/mods` — Optional mods directory (`.kart`, `.wad`, `.pk3`, files loaded automatically via `-file`)
 - `/data` — Home directory for the SRB2 Kart dedicated server process; the config file lives at `/data/.srb2kart/kartserv.cfg`
 
 ## Build Mode

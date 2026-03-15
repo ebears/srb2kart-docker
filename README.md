@@ -1,7 +1,9 @@
-# srb2kart-docker
+<p align="center">
+  <img src="assets/logo1.png" alt="srb2kart-docker" width="480">
+</p>
 
 <p align="center">
-  Run a <a href="https://github.com/STJr/Kart-Public">Sonic Robo Blast 2 Kart</a> dedicated server in Docker. Drop in mods, restart, done.
+  Run a <a href="https://hyuu.cc">Sonic Robo Blast 2 Kart</a> dedicated server in Docker. Drop in mods, restart, done.
 </p>
 
 <p align="center">
@@ -23,6 +25,9 @@ docker compose up -d
 
 A default server config is copied to `data/.srb2kart/kartserv.cfg` on first run. Edit it to customize your server.
 
+<p align="center">
+  <img src="assets/logo2.png" alt="Sonic reading" width="320">
+</p>
 <details>
 <summary>Using plain Docker (without Compose)</summary>
 
@@ -43,10 +48,10 @@ Run this from the directory where you want server data to live -- `./mods` and `
 
 ## Mods
 
-Place `.wad`, `.pk3`, `.kart`, `.soc`, `.lua`, or `.cfg` files in the `mods/` directory. They load automatically on startup.
+Place `.kart`, `.wad`, `.pk3`, `.soc`, `.lua`, or `.cfg` files in the `mods/` directory. They load automatically on startup.
 
 ```bash
-cp my-mod.pk3 mods/
+cp my-mod.kart mods/
 docker compose restart
 ```
 
@@ -96,7 +101,7 @@ KART_IMAGE="" docker compose up -d --build
 
 | Mount | Purpose |
 |-------|---------|
-| `/mods` | Mods (`.wad`, `.pk3`, `.kart`, etc.) loaded automatically via `-file` |
+| `/mods` | Mods (`.kart`, `.wad`, `.pk3`, etc.) loaded automatically via `-file` |
 | `/data` | Server home directory; config at `data/.srb2kart/kartserv.cfg` |
 
 ## Resource Limits
@@ -136,7 +141,7 @@ SRB2 Kart uses **UDP port 5029**. Forward this port through your NAT/firewall so
 |---------|----------|
 | Container exits immediately | `docker compose logs kart` -- usually a missing game data file or port conflict |
 | Port already in use | Another process is using UDP 5029. Stop it or remap the host port (`"5030:5029/udp"`) |
-| Mods not loading | Check file extensions (`.wad`, `.pk3`, `.kart`, `.soc`, `.lua`, `.cfg`) and logs for errors |
+| Mods not loading | Check file extensions (`.kart`, `.wad`, `.pk3`, `.soc`, `.lua`, `.cfg`) and logs for errors |
 | `docker compose` not found | Install [Docker Compose v2](https://docs.docker.com/compose/install/), or use `docker-compose` (v1) |
 | Server not visible | Verify port forwarding on your router and firewall rules for UDP 5029 |
 | Build fails on game data | GitHub API rate limit reached. Wait or use a GitHub token |
