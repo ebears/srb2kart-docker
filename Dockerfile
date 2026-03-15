@@ -26,7 +26,7 @@ RUN KART_VERSION=$(cat /resolved_version) && \
     echo "Cloning Kart-Public ref: $KART_VERSION" && \
     git clone --depth 1 --branch "$KART_VERSION" https://github.com/STJr/Kart-Public.git
 WORKDIR /Kart-Public/src
-RUN make LINUX=1 -j$(nproc)
+RUN make LINUX=1 NOASM=1 -j$(nproc)
 
 FROM alpine:3.23@sha256:25109184c71bdad752c8312a8623239686a9a2071e8825f20acb8f2198c3f659 AS gamedata
 RUN apk add --no-cache wget unzip curl jq
@@ -65,7 +65,7 @@ RUN set -e; \
       else useradd -u 1000 -g srb2kart -m srb2kart; fi; \
     fi
 
-COPY --from=build /Kart-Public/bin/srb2 /SRB2/bin/srb2
+COPY --from=build /Kart-Public/bin/Linux/Release/lsdl2srb2kart /SRB2/bin/lsdl2srb2kart
 COPY --from=gamedata /gamedata /SRB2/
 COPY kartserv.cfg /defaults/kartserv.cfg
 
@@ -75,7 +75,7 @@ VOLUME /mods
 VOLUME /data
 
 HEALTHCHECK --interval=30s --timeout=5s --start-period=10s --retries=3 \
-    CMD pgrep -x srb2 || exit 1
+    CMD pgrep -x lsdl2srb2kart || exit 1
 
 EXPOSE 5029/udp
 

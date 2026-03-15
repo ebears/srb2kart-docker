@@ -1,7 +1,7 @@
 #!/bin/bash
 
-if [ ! -x /SRB2/bin/srb2 ]; then
-    echo "ERROR: /SRB2/bin/srb2 not found or not executable"
+if [ ! -x /SRB2/bin/lsdl2srb2kart ]; then
+    echo "ERROR: /SRB2/bin/lsdl2srb2kart not found or not executable"
     exit 1
 fi
 
@@ -49,7 +49,7 @@ EXTRA=()
 
 # Startup logging
 echo "=== SRB2 Kart Dedicated Server ==="
-echo "Binary: /SRB2/bin/srb2"
+echo "Binary: /SRB2/bin/lsdl2srb2kart"
 if [ ${#FILTERED_ADDONS[@]} -gt 0 ]; then
     echo "Mods (${#FILTERED_ADDONS[@]}):"
     for a in "${FILTERED_ADDONS[@]}"; do
@@ -76,7 +76,7 @@ forward_signal() {
 trap 'forward_signal TERM' SIGTERM
 trap 'forward_signal INT' SIGINT
 
-/SRB2/bin/srb2 -dedicated -config kartserv.cfg -home /data "${EXTRA[@]}" "$@" &
+/SRB2/bin/lsdl2srb2kart -dedicated -config kartserv.cfg -home /data "${EXTRA[@]}" "$@" &
 child_pid=$!
 wait "$child_pid"
 child_exit=$?
