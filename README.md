@@ -26,7 +26,7 @@ docker compose up -d
 A default server config is copied to `data/.srb2kart/kartserv.cfg` on first run. Edit it to customize your server.
 
 <p align="center">
-  <img src="assets/logo2.png" alt="Sonic reading" width="320">
+  <img src="assets/logo2.png" alt="srb2kart-docker-sonic-logo" width="256">
 </p>
 <details>
 <summary>Using plain Docker (without Compose)</summary>
