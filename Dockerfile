@@ -1,7 +1,7 @@
 ARG UBUNTU_VERSION=24.04
 
 # Resolve KART_VERSION=auto to actual tag once, shared by build and gamedata stages
-FROM alpine:3.23@sha256:25109184c71bdad752c8312a8623239686a9a2071e8825f20acb8f2198c3f659 AS version
+FROM alpine:3.24@sha256:28bd5fe8b56d1bd048e5babf5b10710ebe0bae67db86916198a6eec434943f8b AS version
 ARG KART_VERSION=auto
 RUN apk add --no-cache curl jq
 RUN if [ "$KART_VERSION" = "auto" ]; then \
@@ -28,7 +28,7 @@ RUN KART_VERSION=$(cat /resolved_version) && \
 WORKDIR /Kart-Public/src
 RUN make LINUX=1 NOASM=1 -j$(nproc)
 
-FROM alpine:3.23@sha256:25109184c71bdad752c8312a8623239686a9a2071e8825f20acb8f2198c3f659 AS gamedata
+FROM alpine:3.24@sha256:28bd5fe8b56d1bd048e5babf5b10710ebe0bae67db86916198a6eec434943f8b AS gamedata
 RUN apk add --no-cache wget unzip curl jq
 COPY --from=version /resolved_version /resolved_version
 RUN KART_VERSION=$(cat /resolved_version) && \
